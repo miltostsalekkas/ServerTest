@@ -30,6 +30,8 @@
 
     var bgcolor;
 
+    var tilecolor;
+
     var heightAux2 = 0;
     var PixelEntry;
 
@@ -91,17 +93,20 @@
 
 
         var Microphones = [];
-        var Positions = [{x:1,y:2}];
+        var Positions = [{ x: 1, y: 2 }];
+        var Colors = [];
 
         for (var i = 0; i < LocalData.length; i++) {
           Microphones.push(Object.values(LocalData[i])[0].Volume);
           Positions.push(Object.values(LocalData[i])[0].position);
           if (Object.keys(LocalData[i])[0] === socket.id) {
             bgcolor = (Object.values(LocalData[i])[0].color.hex);
+            
           }
+          Colors.push((Object.values(LocalData[i])[0].color.hex));
         }
 
-
+        console.log(color(Colors[0]).levels[0]);
         if (GridInit && socket.id) {
 
           sendGrid(columnsNo, rowsNo);
@@ -121,7 +126,7 @@
 
               square(FrameMargin + x * TileSize, FrameMargin + y * TileSize, TileSize * margin);
               push();
-              fill(214, 218, 255, Aux(Microphones[i]));
+              fill(color(Colors[i]).levels[0],color(Colors[i]).levels[1],color(Colors[i]).levels[2], Aux(Microphones[i]));
               square(FrameMargin + Positions[i].x * TileSize, FrameMargin + Positions[i].y * TileSize, TileSize * margin);
               pop();
             }
