@@ -86,6 +86,7 @@
       columnsNo = Math.floor((windowWidth - RightMargin) / TileSize);
       rowsNo = Math.floor((windowHeight - 2 * FrameMargin) / TileSize);
 
+
       if (LocalData != null) {
 
 
@@ -99,9 +100,8 @@
             bgcolor = (Object.values(LocalData[i])[0].color.hex);
           }
         }
-        console.log(Positions[0].x, Positions[0].y);
 
-        console
+
         if (GridInit && socket.id) {
 
           sendGrid(columnsNo, rowsNo);
@@ -115,15 +115,16 @@
 
         for (var x = 0; x < columnsNo; x++) {
           for (var y = 0; y < rowsNo; y++) {
+            for (var i = 0; i < LocalData.length; i++) {
+              noStroke();
+              fill(210, 210, 210);
 
-            noStroke();
-            fill(210, 210, 210);
-
-            square(FrameMargin + x * TileSize, FrameMargin + y * TileSize, TileSize * margin);
-            push();
-            fill(214, 218, 255, Aux(Microphones[0]));
-            square(FrameMargin + Positions[0].x * TileSize, FrameMargin + Positions[0].y * TileSize, TileSize * margin);
-            pop();
+              square(FrameMargin + x * TileSize, FrameMargin + y * TileSize, TileSize * margin);
+              push();
+              fill(214, 218, 255, Aux(Microphones[i]));
+              square(FrameMargin + Positions[i].x * TileSize, FrameMargin + Positions[i].y * TileSize, TileSize * margin);
+              pop();
+            }
           }
         }
       }
@@ -199,7 +200,7 @@
       var data = {
         [socket.id]: { x: columnsNo, y: rowsNo }
       };
-
+      console.log(socket.id, columnsNo, rowsNo);
       socket.emit('grid', data);
     }
 

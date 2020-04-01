@@ -13,9 +13,10 @@ const server = express()
 const io = socketIO(server);
 
 var Users = 0;
-var IDs=[];
+var IDs = [];
 var PublicData = [];
 var PublicGridData = [];
+var Positions = [];
 
 io.on('connection',
   // We are given a websocket object in our function
@@ -33,19 +34,29 @@ io.on('connection',
 
     IDs.push(socket.id);
 
+    socket.on('grid',
+      function (data) {
+        for (var i = 0; i < IDs.length; i++) {
+          if (data[IDs[i]] != null) {
+            Positions.push((AssisgnRandomPixel(data[IDs[i]].x, data[IDs[i]].y)));
+            console.log(Positions);
+          }
+        }
+      }
+    );
 
 
     // When this user emits, client side: socket.emit('otherevent',some data);
     socket.on('mic',
       function (data) {
 
-        
+
         if (data != null) {
 
           for (var i = 0; i < IDs.length; i++) {
             if (data[IDs[i]] != null) {
               data[IDs[i]].color = color;
-              data[IDs[i]].position = AssisgnRandomPixel(data[IDs[i]].Grid.x, data[IDs[i]].Grid.y, [IDs[i]]);
+              data[IDs[i]].position = Positions[i];
               PublicData[i] = { [IDs[i]]: data[IDs[i]] };
             }
           }
@@ -54,7 +65,6 @@ io.on('connection',
 
 
           socket.emit('Public', PublicData);
-          socket.emit('PublicGridData', PublicGridData);
 
         }
       }
@@ -69,24 +79,18 @@ io.on('connection',
     });
   }
 );
-var lastIndex;
-var LastPixelEntry = { x: 0, y: 0 };
-function AssisgnRandomPixel(columnsNo, rowsNo, index) {
+
+function AssisgnRandomPixel(columnsNo, rowsNo) {
 
 
-  if (JSON.stringify(index) !== JSON.stringify(lastIndex)) {
 
-    var RPixelEntry = {
+  var RPixelEntry = {
 
-      x: Math.floor(Math.random() * columnsNo),
-      y: Math.floor(Math.random() * rowsNo)
+    x: Math.floor(Math.random() * columnsNo),
+    y: Math.floor(Math.random() * rowsNo)
 
-    };
-  }
-  else {
-    RPixelEntry = LastPixelEntry;
-  }
-  lastIndex = index;
-  LastPixelEntry = RPixelEntry;
+  };
+
+
   return RPixelEntry;
 }
