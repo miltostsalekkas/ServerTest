@@ -106,7 +106,6 @@
           Colors.push((Object.values(LocalData[i])[0].color.hex));
         }
 
-        console.log(color(Colors[0]).levels[0]);
         if (GridInit && socket.id) {
 
           sendGrid(columnsNo, rowsNo);
@@ -177,7 +176,7 @@
 
       noFill();
       strokeWeight(heightAux1 / 8);
-      stroke('#A37B73');
+      stroke(246, 246, 246);
       ellipseMode(CENTER);
       ellipse(windowWidth - RightMargin + (RightMargin - PersonalTileSize) / 2 + PersonalTileSize / 2, PersonalTileSize / 2 + FrameMargin, 100 + heightAux1 / 8, 100 + heightAux1 / 8);
 
@@ -205,7 +204,7 @@
       var data = {
         [socket.id]: { x: columnsNo, y: rowsNo }
       };
-      console.log(socket.id, columnsNo, rowsNo);
+  
       socket.emit('grid', data);
     }
 
