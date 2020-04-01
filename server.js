@@ -55,6 +55,7 @@ io.on('connection',
 
           for (var i = 0; i < IDs.length; i++) {
             if (data[IDs[i]] != null) {
+              data[IDs[i]].users = Users;
               data[IDs[i]].color = color;
               data[IDs[i]].position = Positions[i];
               PublicData[i] = { [IDs[i]]: data[IDs[i]] };
