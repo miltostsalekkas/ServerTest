@@ -101,7 +101,7 @@
           Positions.push(Object.values(LocalData[i])[0].position);
           if (Object.keys(LocalData[i])[0] === socket.id) {
             bgcolor = (Object.values(LocalData[i])[0].color.hex);
-            
+
           }
           Colors.push((Object.values(LocalData[i])[0].color.hex));
         }
@@ -126,7 +126,7 @@
 
               square(FrameMargin + x * TileSize, FrameMargin + y * TileSize, TileSize * margin);
               push();
-              fill(color(Colors[i]).levels[0],color(Colors[i]).levels[1],color(Colors[i]).levels[2], Aux(Microphones[i]));
+              fill(color(Colors[i]).levels[0], color(Colors[i]).levels[1], color(Colors[i]).levels[2], Aux(Microphones[i]));
               square(FrameMargin + Positions[i].x * TileSize, FrameMargin + Positions[i].y * TileSize, TileSize * margin);
               pop();
             }
