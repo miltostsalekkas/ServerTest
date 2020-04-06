@@ -1,6 +1,6 @@
-# Social Mic Example
+# Social Mic Example  Master
 
-## Installation for Collaborators
+## Installation for Collaborators   Miltos
 
 
 1.First create a Local Folder somehwere in your PC
