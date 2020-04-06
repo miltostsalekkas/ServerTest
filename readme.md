@@ -1,6 +1,6 @@
 # Social Mic Example
 
-## Instalation for Collaborators
+## Installation for Collaborators
 
 
 1.First create a Local Folder somehwere in your PC
@@ -20,7 +20,7 @@
 
 4.Create Branch
 
-`git co -b Streaming_Microphone`
+`git checkout -b Streaming_Microphone`
 
 “co” is short for “checkout” which is used to switch between branches. Adding the “-b” and a name at the end creates a new branch and then moves into that new branch for us.
 You should be able to verify this with the command:
@@ -37,4 +37,4 @@ Note: As a general rule, you should git add frequently and git commit when you f
 
 7.Next, have everyone git push their branches:
 
-`git push`
+`git push origin Streaming_Microphone`
