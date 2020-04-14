@@ -2,20 +2,19 @@
 const colors = require('riso-colors');
 const express = require('express');
 const socketIO = require('socket.io');
+const http = require("http");
 
-const PORT = process.env.PORT || 3000;
-const INDEX = 'index.html';
+const app = express();
+const server = http.createServer(app);
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.use(express.static(__dirname));
+
 
 const io = socketIO(server);
 
 var Users = 0;
 var IDs = [];
 var PublicData = [];
-var PublicGridData = [];
 var Positions = [];
 
 io.on('connection',
@@ -39,7 +38,6 @@ io.on('connection',
         for (var i = 0; i < IDs.length; i++) {
           if (data[IDs[i]] != null) {
             Positions.push((AssisgnRandomPixel(data[IDs[i]].x, data[IDs[i]].y)));
-            console.log(Positions);
           }
         }
       }
@@ -95,3 +93,12 @@ function AssisgnRandomPixel(columnsNo, rowsNo) {
 
   return RPixelEntry;
 }
+//WebSockets Server 
+
+const port = process.env.PORT || 3000;
+server.listen(port, () => {
+  // Print to console just so we know its ready to go...
+  console.log("Server listening on http://localhost:" + port);
+});
+
+//
